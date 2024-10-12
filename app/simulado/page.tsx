@@ -1,3 +1,6 @@
+// Adicione a diretiva "use client" aqui
+'use client';
+
 import React, { useState } from 'react';
 import styles from './styles.module.css';
 
@@ -5,7 +8,6 @@ interface Question {
   question: string;
   options: string[];
   answer: string;
-  explanation?: string;
 }
 
 interface Result {
@@ -14,7 +16,21 @@ interface Result {
   correct: boolean;
 }
 
-const Simulado: React.FC<{ questions: Question[] }> = ({ questions }) => {
+const questions: Question[] = [
+  {
+    question: "Qual é a capital da França?",
+    options: ["Londres", "Berlim", "Paris", "Madri"],
+    answer: "Paris"
+  },
+  {
+    question: "Qual é a maior montanha do mundo?",
+    options: ["K2", "Kangchenjunga", "Everest", "Makalu"],
+    answer: "Everest"
+  },
+  // Adicione mais perguntas aqui
+];
+
+const Simulado = () => {
   const [questionIndex, setQuestionIndex] = useState(0);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [results, setResults] = useState<Result[]>([]);
@@ -24,21 +40,25 @@ const Simulado: React.FC<{ questions: Question[] }> = ({ questions }) => {
   };
 
   const handleNextQuestion = () => {
-    if (selectedOption) {
-      const correct = selectedOption === questions[questionIndex].answer;
+    if (selectedOption !== null) {
+      const isCorrect = selectedOption === questions[questionIndex].answer;
       setResults((prevResults) => [
         ...prevResults,
-        { question: questions[questionIndex].question, answer: selectedOption, correct },
+        {
+          question: questions[questionIndex].question,
+          answer: selectedOption,
+          correct: isCorrect,
+        },
       ]);
-
+      setQuestionIndex((prevIndex) => prevIndex + 1);
       setSelectedOption(null);
-      setQuestionIndex((prevIndex) => Math.min(prevIndex + 1, questions.length - 1));
     }
   };
 
-  const calculatePercentage = () => {
-    const correctAnswers = results.filter(result => result.correct).length;
-    return ((correctAnswers / results.length) * 100).toFixed(2);
+  const handleRestart = () => {
+    setQuestionIndex(0);
+    setSelectedOption(null);
+    setResults([]);
   };
 
   return (
@@ -51,8 +71,8 @@ const Simulado: React.FC<{ questions: Question[] }> = ({ questions }) => {
               {questions[questionIndex].options.map((option: string, idx: number) => (
                 <li
                   key={idx}
-                  onClick={() => handleOptionSelect(option)}
                   className={`${styles.option} ${selectedOption === option ? styles.selected : ''}`}
+                  onClick={() => handleOptionSelect(option)}
                 >
                   {option}
                 </li>
@@ -63,38 +83,20 @@ const Simulado: React.FC<{ questions: Question[] }> = ({ questions }) => {
             </button>
           </>
         ) : (
-          <div className={styles.results}>
-            <h3>Resultados</h3>
+          <>
+            <h2 className={styles.results}>Resultados</h2>
             {results.map((result, index: number) => (
               <div key={index} className={styles.questionContainer}>
-                <h3>{result.question}</h3>
-                <ul>
-                  {questions[index].options.map((option: string, idx: number) => (
-                    <li
-                      key={idx}
-                      className={`${styles.option} 
-                        ${result.answer === option ? styles.selected : ''} 
-                        ${result.correct && result.answer === option ? styles.correct : ''} 
-                        ${!result.correct && questions[index].answer === option ? styles.correct : ''} 
-                        ${!result.correct && result.answer === option ? styles.wrong : ''}`}
-                    >
-                      {option}
-                    </li>
-                  ))}
-                </ul>
-                <p className={styles.explanation}>
-                  {result.correct ? 'Correto!' : `Incorreto! A resposta certa é: ${questions[index].answer}`}
+                <p>{result.question}</p>
+                <p className={result.correct ? styles.correct : styles.wrong}>
+                  Sua resposta: {result.answer} ({result.correct ? 'Correta' : 'Incorreta'})
                 </p>
-                <p className={styles.explanation}>{!result.correct && questions[index].explanation}</p>
               </div>
             ))}
-            <p className={styles.percentage}>
-              Porcentagem de acertos: <span className={styles.percentageValue}>{calculatePercentage()}%</span>
-            </p>
-            <button className={styles.restartButton} onClick={() => window.location.reload()}>
+            <button className={styles.restartButton} onClick={handleRestart}>
               Reiniciar
             </button>
-          </div>
+          </>
         )}
       </div>
     </div>
