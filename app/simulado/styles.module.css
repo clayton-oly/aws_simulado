@@ -1,0 +1,124 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Altura da tela */
+  background-color: #f9f9f9; /* Cor de fundo */
+}
+
+.innerContainer {
+  text-align: center; /* Centraliza o texto */
+  width: 100%; /* Largura total para o innerContainer */
+  max-width: 600px; /* Limita a largura máxima para o conteúdo */
+  padding: 20px; /* Espaçamento interno */
+  border: 1px solid #ccc; /* Borda */
+  border-radius: 10px; /* Cantos arredondados */
+  background-color: #f0f4f8; /* Cor de fundo clara, mas não branca */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+h1.question {
+  font-size: 1.5rem; /* Aumenta a fonte da pergunta */
+  font-weight: bold; /* Deixa a pergunta em negrito */
+  color: black; /* Cor preta para o texto das perguntas */
+  text-align: left; /* Alinha o texto da pergunta à esquerda */
+}
+
+
+.nextButton, .restartButton {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #0070f3;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.nextButton:hover, .restartButton:hover {
+  background-color: #005bb5;
+}
+
+.ul {
+  padding-left: 0; /* Remove o recuo padrão da lista */
+  text-align: left; /* Alinha o texto das respostas à esquerda */
+}
+
+.option {
+  cursor: pointer;
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+  color: black; /* Cor preta para o texto das respostas */
+  text-align: left; /* Alinha o texto das opções à esquerda */
+}
+
+.selected {
+  background-color: #d4edda; /* Cor verde claro para opção selecionada */
+  border-color: #c3e6cb; /* Cor da borda da opção selecionada */
+}
+
+.correct {
+  background-color: #d4edda; /* Verde para resposta correta */
+  border-color: #c3e6cb; /* Cor da borda da opção correta */
+}
+
+.wrong {
+  background-color: #f8d7da; /* Vermelho para resposta errada */
+  border-color: #f5c6cb; /* Cor da borda da opção errada */
+}
+
+.results {
+  margin-top: 20px; /* Espaço entre o simulado e os resultados */
+  text-align: left; /* Alinha o texto à esquerda */
+}
+
+.results h3 {
+  font-size: 1.5em; /* Aumenta o tamanho da fonte das perguntas */
+  font-weight: bold; /* Deixa as perguntas em negrito */
+  color: black; /* Cor preta para o texto das perguntas */
+}
+
+.questionContainer {
+  margin-bottom: 20px; /* Espaço entre as perguntas */
+}
+
+.explanation {
+  margin-top: 5px;
+  font-style: italic;
+  color: #555; /* Cor mais clara para a explicação */
+  font-size: 0.9rem; /* Tamanho da fonte da explicação */
+}
+
+.percentage {
+  font-size: 1.8rem; /* Aumenta a fonte da porcentagem */
+  font-weight: bold; /* Deixa a porcentagem em negrito */
+  margin-bottom: 20px; /* Espaço abaixo da porcentagem */
+  text-align: center; /* Centraliza o texto */
+}
+
+
+.percentageValue {
+  color: #0070f3; /* Cor da porcentagem */
+}
+
+@media (max-width: 768px) {
+  .innerContainer {
+    padding: 15px; /* Ajusta o espaçamento em telas menores */
+  }
+
+  h1.question {
+    font-size: 1.2rem; /* Diminui o tamanho da fonte em telas menores */
+  }
+
+  .option {
+    font-size: 0.9rem; /* Diminui o tamanho da fonte das opções em telas menores */
+  }
+
+  .nextButton, .restartButton {
+    width: 100%; /* Botões ocupam 100% da largura em telas pequenas */
+    padding: 15px; /* Aumenta o espaçamento do botão em telas menores */
+  }
+}
