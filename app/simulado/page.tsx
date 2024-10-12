@@ -46,7 +46,8 @@ export default function Simulado() {
   };
 
   const handleNext = () => {
-    // Armazena a resposta selecionada para a pergunta atual
+    if (!selectedOption) return; // Impede avançar se nenhuma opção for selecionada
+
     const isCorrect = selectedOption === questions[questionIndex].answer;
 
     setResults((prevResults) => [
@@ -88,8 +89,7 @@ export default function Simulado() {
                     ${result.answer === option ? styles.selected : ''} 
                     ${result.correct && result.answer === option ? styles.correct : ''} 
                     ${!result.correct && questions[index].answer === option ? styles.correct : ''} 
-                    ${!result.correct && result.answer === option ? styles.wrong : ''}`}
-                >
+                    ${!result.correct && result.answer === option ? styles.wrong : ''}`}>
                   {option}
                 </li>
               ))}
@@ -103,7 +103,6 @@ export default function Simulado() {
       </div>
     );
   };
-  
 
   const restartQuiz = () => {
     setQuestionIndex(0);
@@ -120,21 +119,34 @@ export default function Simulado() {
         {questions.length > 0 && !finished ? ( // Verifica se há perguntas disponíveis
           <>
             <h1 className={styles.question}>{questions[questionIndex].question}</h1>
+            <p>Pergunta {questionIndex + 1} de {questions.length}</p> {/* Contador de perguntas */}
             <ul>
               {questions[questionIndex].options.map((option, idx) => (
                 <li 
                   key={idx} 
                   onClick={() => handleOptionSelect(option)} 
                   className={`${styles.option} ${selectedOption === option ? styles.selected : ''}`}
+                  role="button" // Para acessibilidade
+                  tabIndex={0} // Para permitir foco no teclado
+                  onKeyPress={(e) => e.key === 'Enter' && handleOptionSelect(option)} // Suporte para teclado
                 >
                   {option}
                 </li>
               ))}
             </ul>
-            <button onClick={handleNext} className={styles.nextButton}>Próxima Pergunta</button>
+            <button 
+              onClick={handleNext} 
+              className={styles.nextButton} 
+              disabled={!selectedOption} // Desabilita o botão se nenhuma opção for selecionada
+            >
+              Próxima Pergunta
+            </button>
           </>
         ) : (
-          renderResults()
+          <>
+            {renderResults()}
+            <button onClick={restartQuiz} className={styles.restartButton}>Reiniciar Simulado</button>
+          </>
         )}
       </div>
     </div>
