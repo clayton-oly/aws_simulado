@@ -2,14 +2,22 @@
 import React, { useState, useEffect } from 'react';
 import styles from './styles.module.css';
 
+// Definindo o tipo das perguntas
+type Question = {
+  question: string;
+  options: string[];
+  answer: string;
+  explanation: string;
+};
+
 export default function Simulado() {
   const [questionIndex, setQuestionIndex] = useState(0);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [results, setResults] = useState<{ question: string; answer: string | null; correct: boolean }[]>([]);
   const [finished, setFinished] = useState(false);
-  const [questions, setQuestions] = useState<{ question: string; options: string[]; answer: string; explanation: string }[]>([]);
-  
-  const initialQuestions = [
+  const [questions, setQuestions] = useState<Question[]>([]);
+
+  const initialQuestions: Question[] = [
     {
       question: "Qual é o principal serviço de armazenamento da AWS?",
       options: ["S3", "EC2", "Lambda", "DynamoDB"],
@@ -26,7 +34,7 @@ export default function Simulado() {
   ];
 
   // Função para embaralhar as perguntas
-  const shuffleQuestions = (questions: any[]) => {
+  const shuffleQuestions = (questions: Question[]): Question[] => {
     for (let i = questions.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [questions[i], questions[j]] = [questions[j], questions[i]];
@@ -96,6 +104,14 @@ export default function Simulado() {
         ))}
       </div>
     );
+  };
+
+  const restartQuiz = () => {
+    setQuestionIndex(0);
+    setSelectedOption(null);
+    setResults([]);
+    setFinished(false);
+    setQuestions(shuffleQuestions([...initialQuestions]));
   };
 
   return (
