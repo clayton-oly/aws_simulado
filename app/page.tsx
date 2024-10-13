@@ -19,19 +19,66 @@ export default function Simulado() {
 
   const initialQuestions: Question[] = [
     {
-      question: "Qual é o principal serviço de armazenamento da AWS?",
-      options: ["S3", "EC2", "Lambda", "DynamoDB"],
-      answer: "S3",
-      explanation: "O Amazon S3 (Simple Storage Service) é um serviço de armazenamento de objetos que oferece escalabilidade, disponibilidade de dados e segurança.",
+        question: "Qual é o principal serviço de armazenamento de objetos da AWS?",
+        options: ["S3", "EFS", "DynamoDB", "Glacier"],
+        answer: "S3",
+        explanation: "O Amazon S3 (Simple Storage Service) é um serviço de armazenamento de objetos que oferece escalabilidade, disponibilidade de dados e segurança.",
     },
     {
-      question: "Qual serviço da AWS é usado para computação serverless?",
-      options: ["EC2", "RDS", "Lambda", "Redshift"],
-      answer: "Lambda",
-      explanation: "O AWS Lambda é um serviço de computação serverless que permite executar código sem provisionar ou gerenciar servidores.",
+        question: "Qual serviço da AWS é utilizado para executar código sem provisionar servidores?",
+        options: ["EC2", "Lambda", "Fargate", "RDS"],
+        answer: "Lambda",
+        explanation: "O AWS Lambda permite executar código sem provisionar ou gerenciar servidores, cobrando apenas pelo tempo de execução do código.",
     },
-    // Adicione mais perguntas aqui
-  ];
+    {
+        question: "Qual serviço é usado para enviar notificações em tempo real?",
+        options: ["SNS", "SQS", "CloudWatch", "CloudTrail"],
+        answer: "SNS",
+        explanation: "O Amazon SNS (Simple Notification Service) é um serviço de gerenciamento de mensagens que permite o envio de notificações em tempo real.",
+    },
+    {
+        question: "Qual serviço da AWS é utilizado para criar bancos de dados relacionais?",
+        options: ["RDS", "DynamoDB", "Redshift", "Aurora"],
+        answer: "RDS",
+        explanation: "O Amazon RDS (Relational Database Service) facilita a configuração, operação e escalabilidade de bancos de dados relacionais na nuvem.",
+    },
+    {
+        question: "O que é o AWS CloudFormation?",
+        options: ["Um serviço de monitoramento", "Um serviço de banco de dados", "Um serviço de gerenciamento de recursos", "Um serviço de armazenamento"],
+        answer: "Um serviço de gerenciamento de recursos",
+        explanation: "O AWS CloudFormation permite criar e gerenciar recursos da AWS usando arquivos de configuração, facilitando o provisionamento em larga escala.",
+    },
+    {
+        question: "Qual é a função do AWS IAM?",
+        options: ["Gerenciar redes", "Gerenciar identidades e acessos", "Gerenciar armazenamento", "Gerenciar serviços de computação"],
+        answer: "Gerenciar identidades e acessos",
+        explanation: "O AWS IAM (Identity and Access Management) permite controlar o acesso aos recursos da AWS, gerenciando permissões de usuários e serviços.",
+    },
+    {
+        question: "Qual serviço da AWS é usado para armazenar dados não estruturados?",
+        options: ["S3", "EFS", "Glacier", "RDS"],
+        answer: "S3",
+        explanation: "O Amazon S3 é ideal para armazenar dados não estruturados, como imagens, vídeos e backups, devido à sua escalabilidade e durabilidade.",
+    },
+    {
+        question: "Qual é a principal vantagem do AWS Lambda em relação ao EC2?",
+        options: ["Menor custo", "Maior controle", "Gerenciamento de servidores", "Maior escalabilidade"],
+        answer: "Menor custo",
+        explanation: "O AWS Lambda cobra apenas pelo tempo de execução, enquanto o EC2 é baseado em instâncias em execução, o que pode resultar em custos mais altos.",
+    },
+    {
+        question: "Qual é a principal função do AWS CloudWatch?",
+        options: ["Gerenciar usuários", "Monitorar recursos", "Armazenar dados", "Criar redes"],
+        answer: "Monitorar recursos",
+        explanation: "O Amazon CloudWatch permite monitorar e coletar métricas dos recursos da AWS, oferecendo insights sobre a performance e a saúde do ambiente.",
+    },
+    {
+        question: "Qual é a principal diferença entre SQS e SNS?",
+        options: ["SQS é orientado a fila; SNS é orientado a publicação/inscrição", "SNS é mais rápido que SQS", "SQS é para notificações; SNS é para mensagens", "Não há diferença"],
+        answer: "SQS é orientado a fila; SNS é orientado a publicação/inscrição",
+        explanation: "O Amazon SQS (Simple Queue Service) é um serviço de fila que permite o armazenamento de mensagens, enquanto o SNS (Simple Notification Service) permite o envio de notificações em tempo real para múltiplos assinantes.",
+    },
+]
 
   // Função para embaralhar as perguntas
   const shuffleQuestions = (questions: Question[]): Question[] => {
