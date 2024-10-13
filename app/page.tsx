@@ -98,14 +98,6 @@ export default function Simulado() {
     );
   };
 
-  const restartQuiz = () => {
-    setQuestionIndex(0);
-    setSelectedOption(null);
-    setResults([]);
-    setFinished(false);
-    setQuestions(shuffleQuestions([...initialQuestions]));
-  };
-
   return (
     <div className={styles.container}>
       <div className={styles.innerContainer}>
